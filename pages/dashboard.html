@@ -1,0 +1,89 @@
+<!-- ════════════════════════════════════════════════
+     pages/dashboard.html — Home Dashboard
+     ════════════════════════════════════════════════ -->
+<div class="page active" id="pg-home">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1 id="homeTitle">Admin Dashboard</h1>
+      <p>Welcome to Library Management System — overview at a glance.</p>
+    </div>
+    <div>
+      <div class="topbar-badge">📅 <span id="todayDate"></span></div>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-val" id="statBooks">0</div>
+      <div class="stat-lbl">Total Books</div>
+      <div class="stat-icon-bg">📖</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statMovies">0</div>
+      <div class="stat-lbl">Total Movies</div>
+      <div class="stat-icon-bg">🎬</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statMembers">0</div>
+      <div class="stat-lbl">Active Members</div>
+      <div class="stat-icon-bg">👥</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statIssued">0</div>
+      <div class="stat-lbl">Active Issues</div>
+      <div class="stat-icon-bg">📤</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statOverdue">0</div>
+      <div class="stat-lbl">Overdue</div>
+      <div class="stat-icon-bg">⏰</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statFines">₹0</div>
+      <div class="stat-lbl">Fines Pending</div>
+      <div class="stat-icon-bg">💰</div>
+    </div>
+  </div>
+
+  <!-- Product Code Guide -->
+  <div class="card">
+    <div class="card-title">Product Code Reference Guide</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Code From</th><th>Code To</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-mono">SC-(B/M)-000001</span></td>
+            <td><span class="code-mono">SC-(B/M)-000004</span></td>
+            <td>📡 Science</td>
+          </tr>
+          <tr>
+            <td><span class="code-mono">EC-(B/M)-000001</span></td>
+            <td><span class="code-mono">EC-(B/M)-000004</span></td>
+            <td>📈 Economics</td>
+          </tr>
+          <tr>
+            <td><span class="code-mono">FC-(B/M)-000001</span></td>
+            <td><span class="code-mono">FC-(B/M)-000004</span></td>
+            <td>📖 Fiction</td>
+          </tr>
+          <tr>
+            <td><span class="code-mono">CH-(B/M)-000001</span></td>
+            <td><span class="code-mono">CH-(B/M)-000004</span></td>
+            <td>🧸 Children</td>
+          </tr>
+          <tr>
+            <td><span class="code-mono">PD-(B/M)-000001</span></td>
+            <td><span class="code-mono">PD-(B/M)-000004</span></td>
+            <td>🌱 Personal Development</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

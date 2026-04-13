@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    @keyframes statPop {
+      0%   { transform: scale(0.94); opacity: 0.5; }
+      60%  { transform: scale(1.04); }
+      100% { transform: scale(1);    opacity: 1; }
+    }
+
+    /* Loading overlay while page modules fetch */
+    #appLoading {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      gap: 16px;
+      transition: opacity 0.3s;
+    }
+    #appLoading.hidden { opacity: 0; pointer-events: none; }
+    .loading-logo   { font-size: 48px; animation: pulse 1.4s ease-in-out infinite; }
+    .loading-text   { font-family: 'Lora', serif; font-size: 16px; color: var(--muted); }
+    .loading-bar    {
+      width: 180px; height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .loading-bar::after {
+      content: '';
+      display: block; width: 50%; height: 100%;
+      background: var(--amber);
+      border-radius: 3px;
+      animation: loadSlide 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes pulse      { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+    @keyframes loadSlide  { from{margin-left:-50%} to{margin-left:100%} }
+  </style>
+</head>
+<body>
+
+  <!-- ══ LOADING OVERLAY ══ -->
+  <div id="appLoading">
+    <div class="loading-logo">📚</div>
+    <div class="loading-text">Loading Library System…</div>
+    <div class="loading-bar"></div>
+  </div>
+
+  <!-- ══ PAGE INJECTION TARGETS ══
+       Each section below is filled by loadModule() at startup.
+       The markup itself lives in pages/*.html for easy editing.
+  ══════════════════════════════════ -->
+
+  <!-- Login screen -->
+  <div id="slot-login"></div>
+
+  <!-- App shell: sidebar + main content -->
+  <div class="shell hidden" id="appShell">
+
+    <!-- Sidebar nav -->
+    <div id="slot-sidebar"></div>
+
+    <!-- Main content area -->
+    <main class="main" id="mainContent">
+      <div id="slot-dashboard"></div>
+      <div id="slot-transactions"></div>
+      <div id="slot-reports"></div>
+      <div id="slot-maintenance"></div>
+      <div id="slot-result"></div>
+    </main>
+
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       JAVASCRIPT MODULES — Load order matters:
+         1. db.js          → data store (must be first)
+         2. auth.js        → login / logout (needs db)
+         3. nav.js         → routing (needs render functions)
+         4. transactions.js→ issue / return / fine logic
+         5. reports.js     → all report renderers
+         6. maintenance.js → admin CRUD forms
+       ════════════════════════════════════════════════════════════ -->
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/reports.js"></script>
+  <script src="js/maintenance.js"></script>
+
+  <script>
+    /* ════════════════════════════════════════════════
+       PAGE MODULE LOADER
+       Fetches each pages/*.html file and injects it
+       into the appropriate slot div, then boots the app.
+       ════════════════════════════════════════════════ */
+    const PAGE_MODULES = [
+      { file: 'pages/login.html',        slot: 'slot-login'        },
+      { file: 'pages/sidebar.html',      slot: 'slot-sidebar'      },
+      { file: 'pages/dashboard.html',    slot: 'slot-dashboard'    },
+      { file: 'pages/transactions.html', slot: 'slot-transactions' },
+      { file: 'pages/reports.html',      slot: 'slot-reports'      },
+      { file: 'pages/maintenance.html',  slot: 'slot-maintenance'  },
+      { file: 'pages/result.html',       slot: 'slot-result'       },
+    ];
+
+    async function loadModule(file, slotId) {
+      const res  = await fetch(file);
+      const html = await res.text();
+      document.getElementById(slotId).innerHTML = html;
+    }
+
+    async function bootApp() {
+      // Load all page modules in parallel
+      await Promise.all(PAGE_MODULES.map(m => loadModule(m.file, m.slot)));
+
+      // Set today's date in dashboard topbar
+      document.getElementById('todayDate').textContent =
+        new Date().toLocaleDateString('en-IN', {
+          weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+        });
+
+      // Pre-fill login credentials
+      document.getElementById('loginId').value  = 'adm';
+      document.getElementById('loginPwd').value = 'adm';
+
+      // Enter-key support on login inputs
+      ['loginId', 'loginPwd'].forEach(id => {
+        document.getElementById(id).addEventListener('keydown', e => {
+          if (e.key === 'Enter') doLogin();
+        });
+      });
+
+      // Hide loading screen
+      const loader = document.getElementById('appLoading');
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 350);
+    }
+
+    bootApp();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!-- ════════════════════════════════════════════════
+     pages/maintenance.html  (Admin Only)
+     Covers: Add Membership · Update Membership ·
+             Add Book/Movie · Update Book/Movie ·
+             User Management
+     ════════════════════════════════════════════════ -->
+
+<!-- ── ADD MEMBERSHIP ── -->
+<div class="page" id="pg-addMembership">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Add Membership</h1>
+      <p>Register a new library member.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="addMemberAlert"></div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>First Name *</label>
+        <input type="text" id="mFirstName" placeholder="e.g. Rahul" />
+      </div>
+      <div class="form-field">
+        <label>Last Name *</label>
+        <input type="text" id="mLastName" placeholder="e.g. Sharma" />
+      </div>
+      <div class="form-field">
+        <label>Contact Number *</label>
+        <input type="text" id="mContact" placeholder="9876543210" />
+      </div>
+      <div class="form-field">
+        <label>Contact Address *</label>
+        <input type="text" id="mAddress" placeholder="123 MG Road, City" />
+      </div>
+      <div class="form-field">
+        <label>Aadhar Card No *</label>
+        <input type="text" id="mAadhar" placeholder="1234-5678-9012" />
+      </div>
+      <div class="form-field">
+        <label>Start Date *</label>
+        <input type="date" id="mStart" />
+      </div>
+      <div class="form-field full">
+        <label>Membership Duration *</label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="mDur" value="6"  checked /> 6 Months</label>
+          <label class="radio-opt"><input type="radio" name="mDur" value="12" />          1 Year</label>
+          <label class="radio-opt"><input type="radio" name="mDur" value="24" />          2 Years</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="submitAddMembership()">✅ Add Member</button>
+      <button class="btn btn-outline" onclick="clearAddMember()">✕ Clear</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── UPDATE MEMBERSHIP ── -->
+<div class="page" id="pg-updateMembership">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Update Membership</h1>
+      <p>Extend or cancel an existing membership.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="updMemberAlert"></div>
+    <div class="form-grid">
+      <div class="form-field full">
+        <label>Membership Number *</label>
+        <input type="text" id="updMemberId" placeholder="e.g. MEM-001" oninput="lookupMember()" />
+      </div>
+
+      <!-- Member found indicator -->
+      <div class="member-found-card" id="updMemberInfo">
+        <span class="found-label">Member Found</span>
+        <strong class="found-name" id="updMemberName"></strong>
+      </div>
+
+      <div class="form-field">
+        <label>Start Date</label>
+        <input type="date" id="updStart" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Current End Date</label>
+        <input type="date" id="updEnd" readonly class="readonly-field" />
+      </div>
+      <div class="form-field full">
+        <label>Extension Duration</label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="updDur" value="6"  checked /> 6 Months</label>
+          <label class="radio-opt"><input type="radio" name="updDur" value="12" />          1 Year</label>
+          <label class="radio-opt"><input type="radio" name="updDur" value="24" />          2 Years</label>
+        </div>
+      </div>
+      <div class="form-field full">
+        <label>Action</label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="updAction" value="extend" checked /> ✅ Extend Membership</label>
+          <label class="radio-opt"><input type="radio" name="updAction" value="cancel"         /> ❌ Cancel Membership</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber" onclick="submitUpdateMembership()">✅ Update</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ADD BOOK / MOVIE ── -->
+<div class="page" id="pg-addBook">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Add Book / Movie</h1>
+      <p>Add a new item to the library inventory.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="addBookAlert"></div>
+    <div style="margin-bottom:20px">
+      <div class="radio-group">
+        <label class="radio-opt">
+          <input type="radio" name="itemType" value="book" checked onchange="updateItemType()" />
+          📖 Book
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="itemType" value="movie" onchange="updateItemType()" />
+          🎬 Movie
+        </label>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label id="itemNameLabel">Book Name *</label>
+        <input type="text" id="addItemName" placeholder="Enter title" />
+      </div>
+      <div class="form-field">
+        <label id="itemAuthorLabel">Author Name *</label>
+        <input type="text" id="addItemAuthor" placeholder="Enter author / director" />
+      </div>
+      <div class="form-field">
+        <label>Category *</label>
+        <select id="addItemCategory">
+          <option value="">— Select —</option>
+          <option>Science</option>
+          <option>Economics</option>
+          <option>Fiction</option>
+          <option>Children</option>
+          <option>Personal Development</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Cost (₹) *</label>
+        <input type="number" id="addItemCost" min="0" placeholder="0" />
+      </div>
+      <div class="form-field">
+        <label>Quantity / Copies *</label>
+        <input type="number" id="addItemQty" value="1" min="1" />
+      </div>
+      <div class="form-field">
+        <label>Date of Procurement *</label>
+        <input type="date" id="addItemDate" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="submitAddBook()">✅ Add to Inventory</button>
+      <button class="btn btn-outline" onclick="clearAddBook()">✕ Clear</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── UPDATE BOOK / MOVIE ── -->
+<div class="page" id="pg-updateBook">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Update Book / Movie</h1>
+      <p>Update an existing item's status or details.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="updBookAlert"></div>
+    <div style="margin-bottom:20px">
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="updItemType" value="book"  checked /> 📖 Book</label>
+        <label class="radio-opt"><input type="radio" name="updItemType" value="movie"          /> 🎬 Movie</label>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Book / Movie Name *</label>
+        <select id="updItemName" onchange="lookupItem()">
+          <option value="">— Select —</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Serial No (Auto-filled)</label>
+        <input type="text" id="updItemSerial" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Status *</label>
+        <select id="updItemStatus">
+          <option>Available</option>
+          <option>Issued</option>
+          <option>Lost</option>
+          <option>Damaged</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Date</label>
+        <input type="date" id="updItemDate" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber" onclick="submitUpdateBook()">✅ Update</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── USER MANAGEMENT ── -->
+<div class="page" id="pg-userMgmt">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>User Management</h1>
+      <p>Manage system user accounts and permissions.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div id="userMgmtAlert"></div>
+    <div style="margin-bottom:20px">
+      <div class="radio-group">
+        <label class="radio-opt">
+          <input type="radio" name="userOp" value="new" checked onchange="toggleUserForm()" />
+          ➕ New User
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="userOp" value="existing" onchange="toggleUserForm()" />
+          ✏️ Existing User
+        </label>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Name *</label>
+        <input type="text" id="umName" placeholder="Full name" />
+      </div>
+      <div class="form-field" id="umIdField" style="display:none">
+        <label>User ID (for existing)</label>
+        <input type="text" id="umId" placeholder="e.g. adm" />
+      </div>
+      <div class="form-field full">
+        <label>Permissions</label>
+        <div class="check-group">
+          <label class="check-opt"><input type="checkbox" id="umActive" checked /> Active User</label>
+          <label class="check-opt"><input type="checkbox" id="umAdmin"          /> Admin Privileges</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="submitUserMgmt()">✅ Save User</button>
+      <button class="btn btn-outline" onclick="clearUserForm()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">System Users</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>User ID</th><th>Name</th><th>Role</th><th>Status</th></tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>

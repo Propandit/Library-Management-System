@@ -1,0 +1,24 @@
+<!-- ════════════════════════════════════════════════
+     pages/result.html — Transaction Result Pages
+     Covers: Confirmation · Cancelled
+     ════════════════════════════════════════════════ -->
+
+<!-- ── CONFIRMATION ── -->
+<div class="page" id="pg-confirmation">
+  <div class="result-center">
+    <span class="result-icon">✅</span>
+    <h1 style="color: var(--sage)">Transaction Complete</h1>
+    <p id="confirmMsg">The transaction has been completed successfully.</p>
+    <button class="btn btn-amber" onclick="nav('home')">← Back to Dashboard</button>
+  </div>
+</div>
+
+<!-- ── CANCELLED ── -->
+<div class="page" id="pg-cancel">
+  <div class="result-center">
+    <span class="result-icon">❌</span>
+    <h1 style="color: var(--red)">Transaction Cancelled</h1>
+    <p>The transaction has been cancelled. No changes were saved.</p>
+    <button class="btn btn-amber" onclick="nav('home')">← Back to Dashboard</button>
+  </div>
+</div>

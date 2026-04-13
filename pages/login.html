@@ -1,0 +1,33 @@
+<!-- ════════════════════════════════════════════════
+     pages/login.html — Login Screen
+     ════════════════════════════════════════════════ -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+
+    <div class="login-logo">📚</div>
+    <h1>Library Management</h1>
+    <p>Sign in to access the system</p>
+
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="setLoginType('admin')">Admin</button>
+      <button class="login-tab"        onclick="setLoginType('user')">Librarian</button>
+    </div>
+
+    <div class="form-group">
+      <label>User ID</label>
+      <input type="text" id="loginId" placeholder="Enter user ID" autocomplete="username" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPwd" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+
+    <button class="btn-primary" onclick="doLogin()">Sign In →</button>
+    <div class="error-msg" id="loginErr"></div>
+
+    <div class="login-hint">
+      Admin: <code>adm / adm</code> &nbsp;·&nbsp; Librarian: <code>user / user</code>
+    </div>
+
+  </div>
+</div>

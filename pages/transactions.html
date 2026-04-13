@@ -1,0 +1,226 @@
+<!-- ════════════════════════════════════════════════
+     pages/transactions.html
+     Covers: Book Availability · Issue · Return · Pay Fine
+     ════════════════════════════════════════════════ -->
+
+<!-- ── BOOK AVAILABILITY ── -->
+<div class="page" id="pg-bookAvail">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Book Availability</h1>
+      <p>Search for a book or movie by name or author.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="availAlert"></div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Book / Movie Name</label>
+        <select id="searchName"><option value="">— Select or type —</option></select>
+      </div>
+      <div class="form-field">
+        <label>Author / Director</label>
+        <select id="searchAuthor"><option value="">— Select or type —</option></select>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="searchBooks()">🔍 Search</button>
+      <button class="btn btn-outline" onclick="clearSearch()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card" id="searchResultsCard" style="display:none">
+    <div class="card-title">Search Results</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Book / Movie</th>
+            <th>Author / Director</th>
+            <th>Serial No</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Select to Issue</th>
+          </tr>
+        </thead>
+        <tbody id="searchResultsBody"></tbody>
+      </table>
+    </div>
+    <div class="form-actions" style="margin-top:16px">
+      <button class="btn btn-amber" onclick="issueSelected()">📤 Issue Selected</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ISSUE BOOK ── -->
+<div class="page" id="pg-bookIssue">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Issue Book / Movie</h1>
+      <p>Fill in the details to issue a book or movie to a member.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="issueAlert"></div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Book / Movie Name *</label>
+        <select id="issueName"><option value="">— Select —</option></select>
+      </div>
+      <div class="form-field">
+        <label>Author (Auto-filled)</label>
+        <input type="text" id="issueAuthor" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Serial No (Auto-filled)</label>
+        <input type="text" id="issueSerial" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Membership ID *</label>
+        <select id="issueMember"><option value="">— Select Member —</option></select>
+      </div>
+      <div class="form-field">
+        <label>Issue Date *</label>
+        <input type="date" id="issueDate" />
+      </div>
+      <div class="form-field">
+        <label>Return Date (max 15 days)</label>
+        <input type="date" id="issueReturn" />
+      </div>
+      <div class="form-field full">
+        <label>Remarks (Optional)</label>
+        <textarea id="issueRemarks" placeholder="Any notes or special instructions..."></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="submitIssue()">✅ Confirm Issue</button>
+      <button class="btn btn-outline" onclick="clearIssueForm()">✕ Clear</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── RETURN BOOK ── -->
+<div class="page" id="pg-returnBook">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Return Book / Movie</h1>
+      <p>Process the return of a borrowed item.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="returnAlert"></div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Book / Movie Name *</label>
+        <select id="returnName"><option value="">— Select —</option></select>
+      </div>
+      <div class="form-field">
+        <label>Author (Auto-filled)</label>
+        <input type="text" id="returnAuthor" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Serial No *</label>
+        <select id="returnSerial"><option value="">— Select —</option></select>
+      </div>
+      <div class="form-field">
+        <label>Issue Date (Auto-filled)</label>
+        <input type="date" id="returnIssueDate" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Due Return Date</label>
+        <input type="date" id="returnDate" />
+      </div>
+      <div class="form-field full">
+        <label>Remarks (Optional)</label>
+        <textarea id="returnRemarks" placeholder="Condition notes, damage, etc."></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="submitReturn()">✅ Confirm Return</button>
+      <button class="btn btn-outline" onclick="clearReturnForm()">✕ Clear</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── PAY FINE ── -->
+<div class="page" id="pg-payFine">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Pay Fine</h1>
+      <p>Complete a return transaction with fine payment.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="fineAlert"></div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Book / Movie Name</label>
+        <input type="text" id="fineName" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Author / Director</label>
+        <input type="text" id="fineAuthor" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Serial No</label>
+        <input type="text" id="fineSerial" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Membership ID</label>
+        <input type="text" id="fineMember" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Issue Date</label>
+        <input type="date" id="fineIssueDate" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Expected Return Date</label>
+        <input type="date" id="fineReturnDate" readonly class="readonly-field" />
+      </div>
+      <div class="form-field">
+        <label>Actual Return Date</label>
+        <input type="date" id="fineActualDate" onchange="calcFine()" />
+      </div>
+      <div class="form-field">
+        <label>Fine Calculated (₹5/day)</label>
+        <input type="text" id="fineCalc" readonly class="readonly-field" value="0" />
+      </div>
+    </div>
+
+    <!-- Fine summary box -->
+    <div class="fine-box">
+      <div>
+        <div class="fine-label">Total Fine Due</div>
+        <div class="fine-amount" id="fineDisplay">₹ 0</div>
+        <div class="fine-per-day" id="fineDays">(No overdue)</div>
+      </div>
+      <div style="font-size:44px;opacity:0.25">💰</div>
+    </div>
+
+    <div class="form-field full" style="margin-bottom:16px">
+      <label>Payment Confirmation</label>
+      <div class="check-group">
+        <label class="check-opt">
+          <input type="checkbox" id="finePaid" /> Fine Paid
+        </label>
+      </div>
+    </div>
+
+    <div class="form-field full">
+      <label>Remarks (Optional)</label>
+      <textarea id="fineRemarks" placeholder="Any notes about payment..."></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-amber"   onclick="confirmFine()">✅ Complete Return</button>
+      <button class="btn btn-outline" onclick="nav('returnBook')">← Back</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+<!-- ════════════════════════════════════════════════
+     pages/reports.html
+     Covers: Books · Movies · Members · Active Issues ·
+             Overdue Returns · Issue Requests
+     ════════════════════════════════════════════════ -->
+
+<!-- ── MASTER LIST OF BOOKS ── -->
+<div class="page" id="pg-rptBooks">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Master List of Books</h1>
+      <p>All books currently in the library inventory.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" id="filterBooks"
+               placeholder="Search by name, author, category..."
+               oninput="renderBooksTable()" />
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No</th>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Cost (₹)</th>
+            <th>Procured</th>
+          </tr>
+        </thead>
+        <tbody id="booksTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MASTER LIST OF MOVIES ── -->
+<div class="page" id="pg-rptMovies">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Master List of Movies</h1>
+      <p>All movies currently in the library inventory.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" id="filterMovies"
+               placeholder="Search by title, director, category..."
+               oninput="renderMoviesTable()" />
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No</th>
+            <th>Movie Name</th>
+            <th>Director</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Cost (₹)</th>
+            <th>Procured</th>
+          </tr>
+        </thead>
+        <tbody id="moviesTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MEMBERSHIPS ── -->
+<div class="page" id="pg-rptMembers">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>List of Memberships</h1>
+      <p>All registered library members and their status.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" id="filterMembers"
+               placeholder="Search by name or membership ID..."
+               oninput="renderMembersTable()" />
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Membership ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Aadhar No</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Fine Pending</th>
+          </tr>
+        </thead>
+        <tbody id="membersTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ACTIVE ISSUES ── -->
+<div class="page" id="pg-rptActive">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Active Issues</h1>
+      <p>Books and movies currently out on loan.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No</th>
+            <th>Book / Movie</th>
+            <th>Member ID</th>
+            <th>Issue Date</th>
+            <th>Due Return</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="activeIssuesBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── OVERDUE RETURNS ── -->
+<div class="page" id="pg-rptOverdue">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Overdue Returns</h1>
+      <p>Items that have not been returned by their due date.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No</th>
+            <th>Book / Movie</th>
+            <th>Member ID</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Days Overdue</th>
+            <th>Fine (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="overdueBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ISSUE REQUESTS (Full History) ── -->
+<div class="page" id="pg-rptRequests">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Issue Requests</h1>
+      <p>Complete log of all issue and return transactions.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Member ID</th>
+            <th>Book / Movie</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="requestsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<!-- ════════════════════════════════════════════════
+     pages/sidebar.html — Sidebar Navigation
+     ════════════════════════════════════════════════ -->
+<aside class="sidebar">
+
+  <div class="sidebar-brand">
+    <div class="brand-logo">📚</div>
+    <h2>Library Management System</h2>
+    <p id="branchLabel">Branch: Main</p>
+  </div>
+
+  <div class="sidebar-section">Transactions</div>
+  <button class="nav-item" onclick="nav('bookAvail')">  <span class="nav-icon">🔍</span> Book Availability  </button>
+  <button class="nav-item" onclick="nav('bookIssue')">  <span class="nav-icon">📤</span> Issue Book         </button>
+  <button class="nav-item" onclick="nav('returnBook')"> <span class="nav-icon">📥</span> Return Book        </button>
+  <button class="nav-item" onclick="nav('payFine')">    <span class="nav-icon">💰</span> Pay Fine           </button>
+
+  <div class="sidebar-section">Reports</div>
+  <button class="nav-item" onclick="nav('rptBooks')">    <span class="nav-icon">📖</span> Master – Books     </button>
+  <button class="nav-item" onclick="nav('rptMovies')">   <span class="nav-icon">🎬</span> Master – Movies    </button>
+  <button class="nav-item" onclick="nav('rptMembers')">  <span class="nav-icon">👥</span> Memberships        </button>
+  <button class="nav-item" onclick="nav('rptActive')">   <span class="nav-icon">✅</span> Active Issues      </button>
+  <button class="nav-item" onclick="nav('rptOverdue')">  <span class="nav-icon">⏰</span> Overdue Returns    </button>
+  <button class="nav-item" onclick="nav('rptRequests')"> <span class="nav-icon">📋</span> Issue Requests     </button>
+
+  <div class="sidebar-section admin-only" id="maintSection">Maintenance</div>
+  <button class="nav-item admin-only" onclick="nav('addMembership')">    <span class="nav-icon">➕</span> Add Membership    </button>
+  <button class="nav-item admin-only" onclick="nav('updateMembership')"> <span class="nav-icon">✏️</span> Update Membership </button>
+  <button class="nav-item admin-only" onclick="nav('addBook')">          <span class="nav-icon">📗</span> Add Book / Movie  </button>
+  <button class="nav-item admin-only" onclick="nav('updateBook')">       <span class="nav-icon">🔄</span> Update Book / Movie </button>
+  <button class="nav-item admin-only" onclick="nav('userMgmt')">         <span class="nav-icon">👤</span> User Management   </button>
+
+  <div class="sidebar-footer">
+    <div class="user-chip">
+      <div class="user-avatar" id="avatarInitial">A</div>
+      <div class="user-info">
+        <strong id="userLabel">Admin</strong>
+        <small  id="roleLabel">Administrator</small>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="doLogout()">🚪 Log Out</button>
+  </div>
+
+</aside>
